@@ -5,23 +5,27 @@ import 'dart:convert';
 import '../model/homescreen_model.dart';
 import 'package:http/http.dart' as http;
 
-Future <List<Hoteldata>> GetApiData()async{
+class NetworkService{
 
-  final URL = Uri.http ('https://www.hotelsgo.co/test/hotels');
+  Future <List<Hoteldata>> GetApiData()async{
 
-  var response = await http.get(URL);
-  if(response.statusCode == 200){
+    final URL = Uri.http ('https://www.hotelsgo.co/test/hotels');
 
-    var data = jsonDecode(response.body);
+    var response = await http.get(URL);
+    if(response.statusCode == 200){
 
-    return hoteldataFromJson(data);
+      var data = jsonDecode(response.body);
+
+      return hoteldataFromJson(data);
 
       print(data);
 
-  } else{
-    throw Exception('Data Failed');
+    } else{
+      throw Exception('Data Failed');
+    }
+
+
+
   }
-
-
 
 }

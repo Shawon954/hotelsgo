@@ -15,12 +15,12 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.splash,
-      page: () => const SplashView(),
+      page: () =>  SplashView(),
       binding: SplashBinding(),
     ),
     GetPage(
       name: _Paths.homepage,
-      page: () => const HomepageView(),
+      page: () =>  HomepageView(),
       binding: HomepageBinding(),
     ),
   ];
