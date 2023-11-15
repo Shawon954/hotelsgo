@@ -1,12 +1,19 @@
 import 'package:get/get.dart';
+import 'package:hotelsgo/app/model/homescreen_model.dart';
+import 'package:hotelsgo/app/service/network_service.dart';
 
 class HomepageController extends GetxController {
-  //TODO: Implement HomepageController
 
-  final count = 0.obs;
+  var isloading = false.obs;
+
+ final hoteldata = <Hoteldata>[].obs;
+
+
   @override
   void onInit() {
     super.onInit();
+    GetData();
+
   }
 
   @override
@@ -19,5 +26,25 @@ class HomepageController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void GetData()async{
+    try{
+      isloading(true);
+       var readdate = await NetworkService().GetApiData();
+
+       if(readdate !=null){
+         hoteldata.assignAll(readdate);
+       }
+       print(hoteldata);
+    }
+  catch(e)
+  {
+      print(e.toString());
+  }
+  finally
+  {
+      isloading(false);
+  }
+}
+
+
 }
