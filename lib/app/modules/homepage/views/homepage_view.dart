@@ -310,7 +310,7 @@ class HomepageView extends GetView<HomepageController> {
                                                             snapshort
                                                                 .data![index]
                                                                 .price
-                                                                .toDouble()
+                                                                .toInt()
                                                                 .toString(),
                                                             style: textAppBarStyle(
                                                                 fontWeight:
