@@ -1,18 +1,22 @@
 import 'package:get/get.dart';
-import 'package:hotelsgo/app/model/homescreen_model.dart';
-import 'package:hotelsgo/app/service/network_service.dart';
+import 'package:hotelsgo/app/model/hotels_model.dart';
+import 'package:hotelsgo/app/service/api_data.dart';
+
+
 
 class HomepageController extends GetxController {
 
-  var isloading = false.obs;
 
- final hoteldata = <Hoteldata>[].obs;
+  var isLoading = true.obs;
+  var hoteldatainfo = <HotelsGo>[].obs;
 
 
   @override
   void onInit() {
+
+    collectiongetapidata();
+
     super.onInit();
-    GetData();
 
   }
 
@@ -26,25 +30,32 @@ class HomepageController extends GetxController {
     super.onClose();
   }
 
-  void GetData()async{
-    try{
-      isloading(true);
-       var readdate = await NetworkService().GetApiData();
 
-       if(readdate !=null){
-         hoteldata.assignAll(readdate);
+   collectiongetapidata()async{
+
+    try{
+       isLoading(true).obs;
+      var receivedata = await ApiService().getfatchdata();
+
+
+       if(reactive !=null){
+         hoteldatainfo.assignAll(receivedata);
        }
-       print(hoteldata);
+
+
+
+
+
+    }catch(e){
+      print("Error fatching HostelsGo Data $e");
     }
-  catch(e)
-  {
-      print(e.toString());
+    finally{
+      isLoading(false);
+    }
+
+
+
   }
-  finally
-  {
-      isloading(false);
-  }
-}
 
 
 }
