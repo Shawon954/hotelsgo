@@ -16,7 +16,9 @@ class HomepageView extends GetView<HomepageController> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery
+        .of(context)
+        .size;
     return BackrounScreen(
         body: FutureBuilder(
             future: ApiService().getfatchdata(),
@@ -24,15 +26,17 @@ class HomepageView extends GetView<HomepageController> {
               if (snapshort.hasError) {
                 return Center(
                   child: Text(
-                    "Something wrong with message : ${snapshort.error.toString()}",
+                    "Something wrong with message : ${snapshort.error
+                        .toString()}",
                     textAlign: TextAlign.center,
                   ),
                 );
               } else if (snapshort.connectionState == ConnectionState.done) {
                 return ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(
-                    height: 5,
-                  ),
+                  separatorBuilder: (context, index) =>
+                      SizedBox(
+                        height: 5,
+                      ),
                   itemCount: controller.hoteldatainfo.length,
                   itemBuilder: (BuildContext context, index) {
                     return Padding(
@@ -44,7 +48,7 @@ class HomepageView extends GetView<HomepageController> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
+                              BorderRadius.all(Radius.circular(12)),
                               boxShadow: [
                                 BoxShadow(
                                     color: Colors.grey,
@@ -73,19 +77,22 @@ class HomepageView extends GetView<HomepageController> {
                                         imageUrl: snapshort.data![index].image,
                                         imageBuilder:
                                             (context, imageProvider) =>
-                                                Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(12),
-                                                topRight: Radius.circular(12)),
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover,
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft: Radius.circular(
+                                                        12),
+                                                    topRight: Radius.circular(
+                                                        12)),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                        placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator()),
+                                        placeholder: (context, url) =>
+                                            Center(
+                                                child: CircularProgressIndicator()),
                                         errorWidget: (context, url, error) =>
                                             Icon(Icons.error),
                                       ),
@@ -95,13 +102,24 @@ class HomepageView extends GetView<HomepageController> {
                                         child: Align(
                                           alignment: Alignment.topRight,
                                           child: CircleAvatar(
-                                            radius: 28,
-                                            backgroundColor: Colors.black26,
-                                            child: Icon(
-                                              Icons.favorite_outline,
-                                              size: 30,
-                                              color: Colors.white,
-                                            ),
+                                              radius: 28,
+                                              backgroundColor: Colors.black26,
+                                              child: Obx(() {
+                                                return GestureDetector(
+                                                    onTap: () {
+                                                      controller.toogle(index);
+                                                    },
+                                                    child: controller
+                                                        .plantantigensselected
+                                                        .contains(index) ? Icon(
+                                                      Icons.favorite_outline,
+                                                      color: Colors.white,
+                                                      size: 30,) : Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.white,
+                                                      size: 30,)
+                                                );
+                                              })
                                           ),
                                         ),
                                       ),
@@ -119,11 +137,11 @@ class HomepageView extends GetView<HomepageController> {
                                       left: 10, right: 10),
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           RatingBar.builder(
                                             initialRating: snapshort
@@ -134,11 +152,12 @@ class HomepageView extends GetView<HomepageController> {
                                             direction: Axis.horizontal,
                                             allowHalfRating: true,
                                             itemCount: 5,
-                                            itemBuilder: (context, _) => Icon(
-                                              Icons.star,
-                                              color: Colors.amber,
-                                              size: 10,
-                                            ),
+                                            itemBuilder: (context, _) =>
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber,
+                                                  size: 10,
+                                                ),
                                             onRatingUpdate: (rating) {
                                               print(rating);
                                             },
@@ -170,7 +189,7 @@ class HomepageView extends GetView<HomepageController> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             height: 30.h,
@@ -181,12 +200,13 @@ class HomepageView extends GetView<HomepageController> {
                                                     Radius.circular(20))),
                                             child: Center(
                                                 child: Text(
-                                              snapshort.data![index].reviewScore
-                                                  .toString(),
-                                              style: textAppBarStyle(
-                                                  fontSize: 16.sp,
-                                                  color: Colors.white),
-                                            )),
+                                                  snapshort.data![index]
+                                                      .reviewScore
+                                                      .toString(),
+                                                  style: textAppBarStyle(
+                                                      fontSize: 16.sp,
+                                                      color: Colors.white),
+                                                )),
                                           ),
                                           SizedBox(
                                             width: 4.w,
@@ -234,8 +254,8 @@ class HomepageView extends GetView<HomepageController> {
                                                 flex: 1,
                                                 child: Padding(
                                                   padding:
-                                                      const EdgeInsets.only(
-                                                          top: 10, left: 10),
+                                                  const EdgeInsets.only(
+                                                      top: 10, left: 10),
                                                   child: Column(
                                                     children: [
                                                       Container(
@@ -245,19 +265,19 @@ class HomepageView extends GetView<HomepageController> {
                                                             color: Colors
                                                                 .blue.shade300
                                                                 .withOpacity(
-                                                                    0.4),
+                                                                0.4),
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            10))),
+                                                            BorderRadius
+                                                                .all(Radius
+                                                                .circular(
+                                                                10))),
                                                         child: Center(
                                                           child: Text(
                                                             "Our lowest price",
                                                             style: textAppBarStyle(
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                FontWeight
+                                                                    .w500,
                                                                 fontSize: 16.sp,
                                                                 color: Colors
                                                                     .black),
@@ -271,17 +291,17 @@ class HomepageView extends GetView<HomepageController> {
                                                         children: [
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    top: 6),
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 6),
                                                             child: Text(
                                                               "\$",
                                                               style: textAppBarStyle(
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
+                                                                  FontWeight
+                                                                      .w500,
                                                                   fontSize:
-                                                                      16.sp,
+                                                                  16.sp,
                                                                   color: Colors
                                                                       .green),
                                                             ),
@@ -294,8 +314,8 @@ class HomepageView extends GetView<HomepageController> {
                                                                 .toString(),
                                                             style: textAppBarStyle(
                                                                 fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                                                FontWeight
+                                                                    .bold,
                                                                 fontSize: 24.sp,
                                                                 color: Colors
                                                                     .green),
@@ -305,19 +325,19 @@ class HomepageView extends GetView<HomepageController> {
                                                           ),
                                                           Padding(
                                                             padding:
-                                                                const EdgeInsets
-                                                                    .only(
-                                                                    top: 6),
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 6),
                                                             child: Text(
                                                               snapshort
                                                                   .data![index]
                                                                   .currency,
                                                               style: textAppBarStyle(
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
+                                                                  FontWeight
+                                                                      .bold,
                                                                   fontSize:
-                                                                      18.sp,
+                                                                  18.sp,
                                                                   color: Colors
                                                                       .green),
                                                             ),
@@ -329,18 +349,18 @@ class HomepageView extends GetView<HomepageController> {
                                                       ),
                                                       Align(
                                                         alignment:
-                                                            Alignment.topLeft,
+                                                        Alignment.topLeft,
                                                         child: Text(
                                                           "Renaissance",
                                                           style:
-                                                              textAppBarStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  fontSize:
-                                                                      14.sp,
-                                                                  color: Colors
-                                                                      .grey),
+                                                          textAppBarStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w500,
+                                                              fontSize:
+                                                              14.sp,
+                                                              color: Colors
+                                                                  .grey),
                                                         ),
                                                       )
                                                     ],
@@ -351,16 +371,16 @@ class HomepageView extends GetView<HomepageController> {
                                                 child: Center(
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.end,
+                                                    MainAxisAlignment.end,
                                                     children: [
                                                       Text(
                                                         "View Deal",
                                                         style: textAppBarStyle(
                                                             fontWeight:
-                                                                FontWeight.bold,
+                                                            FontWeight.bold,
                                                             fontSize: 16.sp,
                                                             color:
-                                                                Colors.black),
+                                                            Colors.black),
                                                       ),
                                                       SizedBox(
                                                         width: 5.w,

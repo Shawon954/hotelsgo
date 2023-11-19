@@ -10,12 +10,12 @@ class HomepageController extends GetxController {
   var isLoading = true.obs;
   var hoteldatainfo = <HotelsGo>[].obs;
 
-
+  var plantantigensselected = [].obs;
   @override
   void onInit() {
 
     collectiongetapidata();
-
+    toogle(0);
     super.onInit();
 
   }
@@ -55,6 +55,15 @@ class HomepageController extends GetxController {
 
 
 
+  }
+
+
+  toogle(int index) {
+    if (plantantigensselected.contains(index)) {
+      plantantigensselected.remove(index);
+    } else {
+      plantantigensselected.add(index);
+    }
   }
 
 
